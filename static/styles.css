@@ -1,0 +1,150 @@
+body {
+    width: 75%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #1e6d94;
+    background-color: #f6f8f8;
+}
+
+h1 {
+    text-align: center;
+}
+
+.pale_container {
+    background-color: #faf9f9;
+    padding: 15px;
+}
+
+.error_container {
+    color: #b2032d;
+    background-color: #9a9193;
+    padding: 15px;
+    text-align: center;
+}
+
+.login_container {
+    background-image: url('images/backround.jpg');
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+button {
+    background-color: #1e6d94;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    height: 30px;
+    width: 90px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.login_form {
+    margin-top: 150px;
+    text-align: center;
+}
+
+input {
+    margin-bottom: 5px;
+    width: 280px;
+    height: 28px;
+    border-radius: 2px;
+    border: none;
+}
+
+div.main_container {
+    display: grid;
+    grid-template-columns: 1fr 3.5fr;
+}
+
+.container {
+    background-color: white;
+}
+
+.content_container {
+    padding: 10px;
+}
+
+.navbar_container {
+    background-color: white;
+    height: 50px;
+    text-align: right;
+    padding: 20px;
+    color: #323232;
+    text-decoration: none;
+}
+
+div.dashboard_sidebar {
+    background: #323232;
+    height: 100vh;
+}
+
+div.dashboard_sidebar_user {
+    text-align: center;
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid white;
+}
+
+div.dashboard_sidebar_user img {
+    width: 80px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #f685a1;
+    margin-top: 20px;
+    margin-right: 5px;
+}
+
+div.dashboard_sidebar_user span {
+    margin-top: 15px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: white;
+    display: inline-block;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul.dashboard_menu_lists {
+    margin-top: 20px;
+}
+
+ul.dashboard_menu_lists li {
+    padding: 15px 15px;
+    text-transform: uppercase;
+}
+
+ul.dashboard_menu_lists li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-size: 14px;
+}
+
+ul.dashboard_menu_lists li a i {
+    font-size: 16px;
+}
+
+ul.dashboard_menu_lists li.menu_active {
+    background: #f685a1;
+    color: white;
+}
+
+ul.dashboard_menu_lists li:hover {
+    background: #f685a1;
+    color: white;
+    transition: 0.3s all;
+}
+
+
