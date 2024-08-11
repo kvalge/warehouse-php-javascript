@@ -55,4 +55,70 @@ class Repository
             return null;
         }
     }
+
+    function saveContact(Contact $contact, String $partner): void {
+        $stmt = $this->createConnection()->prepare('INSERT INTO contacts (
+                      id, name, contact_person, address, phone, email) 
+VALUES (DEFAULT, :name, :contact_person, :address, :phone, :email)');
+
+        $stmt->bindValue(':name', $contact->name);
+        $stmt->bindValue(':contact_person', $contact->contactPerson);
+        $stmt->bindValue(':address', $contact->address);
+        $stmt->bindValue(':phone', $contact->phone);
+        $stmt->bindValue(':email', $contact->email);
+
+        $stmt->execute();
+
+        $conn = $this->createConnection();
+
+        $contact_id = $conn->lastInsertId();
+
+        $this->savePartner($contact_id, $partner);
+    }
+
+    function savePartner($id, $partner): void {
+        $stmt = $this->createConnection()->prepare('INSERT INTO ' . $partner . ' (
+                      id, contacts_id) 
+VALUES (DEFAULT, :contacts_id)');
+
+        $stmt->bindValue(':contacts_id', $id);
+
+        $stmt->execute();
+    }
+
+
+    function getAllContacts($partner): false|array {
+        $stmt = $this->createConnection()->prepare('SELECT * FROM ' . $partner);
+
+        $stmt->execute();
+
+        $partnerList = [];
+        foreach ($stmt as $row) {
+
+            [$id, $contactsId] = $row;
+            $contact = $this->getContact($contactsId);
+
+            $partnerList[] = $contact;
+        }
+        return $partnerList;
+    }
+
+    function getContact(int $id): Contact {
+        $stmt = $this->createConnection()->prepare('SELECT * FROM contacts WHERE id = :id');
+
+        $stmt->bindValue(':id', $id);
+
+        $stmt->execute();
+
+        $contact = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $id = $contact['id'];
+        $name = $contact['name'];
+        $contactPerson = $contact['contact_person'];
+        $address = $contact['address'];
+        $phone = $contact['phone'];
+        $email = $contact['email'];
+
+        return new Contact($id, $name, $contactPerson, $address, $phone, $email);
+    }
 }

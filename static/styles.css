@@ -1,15 +1,20 @@
 body {
     width: 75%;
     font-family: 'Roboto', sans-serif;
-    font-size: 17px;
+    font-size: 12px;
     margin-left: auto;
     margin-right: auto;
-    color: #1e6d94;
+    color: #252525;
     background-color: #f6f8f8;
 }
 
 h1 {
     text-align: center;
+}
+
+.date {
+    padding: 5px;
+    font-size: 14px;
 }
 
 .pale_container {
@@ -19,7 +24,14 @@ h1 {
 
 .error_container {
     color: #b2032d;
-    background-color: #9a9193;
+    background-color: #dcd7d7;
+    padding: 15px;
+    text-align: center;
+}
+
+.save_container {
+    color: #52a66c;
+    background-color: #faf9f9;
     padding: 15px;
     text-align: center;
 }
@@ -38,7 +50,7 @@ h1 {
 }
 
 button {
-    background-color: #1e6d94;
+    background-color: #f685a1;
     border: none;
     color: white;
     border-radius: 3px;
@@ -53,12 +65,26 @@ button {
     text-align: center;
 }
 
+.form_group {
+    display: flex;
+}
+
 input {
     margin-bottom: 5px;
     width: 280px;
     height: 28px;
-    border-radius: 2px;
-    border: none;
+    border-radius: 4px;
+    border: #9a9193 solid 1px;
+}
+
+.form_group input {
+    display: block;
+}
+
+
+.login_form input {
+    width: 260px;
+    border: white;
 }
 
 div.main_container {
@@ -70,17 +96,48 @@ div.main_container {
     background-color: white;
 }
 
+
+div.links_main_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.links_container {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #f6f4f4;
+    margin-right: 2%;
+    border-radius: 3px;
+}
+
+.supplier_customer {
+    font-size: 18px;
+    font-weight: bolder;
+    color: #323232;
+    padding: 5px;
+    text-decoration: underline;
+    text-decoration-color: #323232;
+}
+
 .content_container {
     padding: 10px;
 }
 
 .navbar_container {
+    display: grid;
     background-color: white;
-    height: 50px;
+    height: 20px;
     text-align: right;
     padding: 20px;
     color: #323232;
     text-decoration: none;
+    grid-template-columns: 1fr 30fr;
+    font-size: 16px;
+}
+
+.navbar_button {
 }
 
 div.dashboard_sidebar {
@@ -91,12 +148,13 @@ div.dashboard_sidebar {
 div.dashboard_sidebar_user {
     text-align: center;
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 12px;
     border-bottom: 1px solid white;
 }
 
 div.dashboard_sidebar_user img {
-    width: 80px;
+    width: 90px;
+    height: 90px;
     display: inline-block;
     border-radius: 50%;
     border: 2px solid #f685a1;
