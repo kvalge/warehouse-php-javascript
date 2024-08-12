@@ -5,7 +5,7 @@
     <div class="links_container">
         <h3>Current Partners</h3>
         <ul>
-            <?php foreach ($suppliers as $supplier): ?>
+            <?php foreach ($partners as $supplier): ?>
                 <a href="../index.php?command=contact_details&id=<?php echo $supplier->id; ?>">
                     <li class="supplier_customer"><?php echo htmlspecialchars($supplier->name); ?></li>
                 </a>
@@ -46,7 +46,7 @@
                         <label for="email">Email:</label>
                         <input type="text" id="email" name="email">
                     </div>
-                    <button type="submit" name="supplier" value="supplier">Submit</button>
+                    <button type="submit" name="partner" value="supplier">Submit</button>
                 </div>
         </form>
     </div>
