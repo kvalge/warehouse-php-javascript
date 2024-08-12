@@ -37,11 +37,11 @@ if ($command == 'login' && !$login && !$partner) {
 if ($login) {
     $validateLogin = validateLogin($username, $password);
 
-    if (!empty($validateLogin['firstName']) && !empty($validateLogin['lastName']) && !empty($validateLogin['photo'])) {
-        $firstName = $validateLogin['firstName'];
-        $lastName = $validateLogin['lastName'];
-        $photo = $validateLogin['photo'];
+    $firstName = $validateLogin['firstName'];
+    $lastName = $validateLogin['lastName'];
+    $photo = $validateLogin['photo'];
 
+    if (!empty($firstName) && !empty($lastName) && !empty($photo)) {
         $_SESSION['first_name'] = $firstName;
         $_SESSION['last_name'] = $lastName;
         $_SESSION['photo'] = $photo;
@@ -49,7 +49,7 @@ if ($login) {
         header("Location: ?command=dashboard");
 
     } else {
-        $message = "Username or password is not valid, or missing user data!";
+        $message = "Username or password is not valid!";
         include 'templates/login.php';
     }
     exit();
