@@ -5,6 +5,7 @@ session_start();
 require_once 'Repository.php';
 require_once 'Contact.php';
 require_once 'validation.php';
+require_once 'functions.php';
 
 $command = $_GET['command'] ?? 'login';
 
@@ -65,111 +66,115 @@ if ($command == 'dashboard') {
     exit();
 }
 
-    if ($command == 'homepage') {
-        $firstName = $_SESSION['first_name'];
-        $lastName = $_SESSION['last_name'];
-        $photo = $_SESSION['photo'];
+if ($command == 'homepage') {
+    $firstName = $_SESSION['first_name'];
+    $lastName = $_SESSION['last_name'];
+    $photo = $_SESSION['photo'];
 
-        $template = "templates/homepage.php";
+    $wh_occupancy = get_warehouse_occupancy();
+
+    $template = "templates/homepage.php";
+
+    include "templates/dashboard.php";
+    exit();
+}
+
+if ($command == 'inventory') {
+    $firstName = $_SESSION['first_name'];
+    $lastName = $_SESSION['last_name'];
+    $photo = $_SESSION['photo'];
+
+    $wh_occupancy = get_warehouse_occupancy();
+
+    $template = "templates/inventory.php";
+
+    include "templates/dashboard.php";
+    exit();
+}
+
+if ($command == 'order') {
+    $firstName = $_SESSION['first_name'];
+    $lastName = $_SESSION['last_name'];
+    $photo = $_SESSION['photo'];
+
+    $template = "templates/order.php";
+
+    include "templates/dashboard.php";
+    exit();
+}
+
+if ($command == 'supplier') {
+    $firstName = $_SESSION['first_name'];
+    $lastName = $_SESSION['last_name'];
+    $photo = $_SESSION['photo'];
+
+    $template = "templates/supplier.php";
+
+    $partners = $repository->getAllContacts('supplier');
+
+    include "templates/dashboard.php";
+    exit();
+}
+
+if ($command == 'customer') {
+    $firstName = $_SESSION['first_name'];
+    $lastName = $_SESSION['last_name'];
+    $photo = $_SESSION['photo'];
+
+    $template = "templates/customer.php";
+
+    $partners = $repository->getAllContacts('customer');
+
+    include "templates/dashboard.php";
+    exit();
+}
+
+if ($command == 'contact_details') {
+    $firstName = $_SESSION['first_name'];
+    $lastName = $_SESSION['last_name'];
+    $photo = $_SESSION['photo'];
+
+    $template = "templates/contact_details.php";
+    $contact = $repository->getContact($id);
+
+    include "templates/dashboard.php";
+    exit();
+}
+
+if ($partner) {
+    $firstName = $_SESSION['first_name'];
+    $lastName = $_SESSION['last_name'];
+    $photo = $_SESSION['photo'];
+
+    $template = "templates/" . $partner . ".php";
+
+    if ($name == '' or $contact == '' or $address = '' or $phone == '' or $email = '') {
+        $partners = $repository->getAllContacts($partner);
+        $currentCommand = $partner;
+        $message = 'The entered data is not valid.';
+        $messageType = 'error';
 
         include "templates/dashboard.php";
         exit();
+
+    } else {
+        $newContact = new Contact(null, $name, $contact, $address, $phone, $email);
+
+        $repository->saveContact($newContact, $partner);
+        $repository->getAllContacts($partner);
+        $message = 'New ' . $partner . ' is saved!';
+        $messageType = 'success';
+
+        header("Location: ?command=" . $partner . "&message=" . urlencode($message) . "&messageType=" . urlencode($messageType));
     }
+    exit();
+}
 
-    if ($command == 'inventory') {
-        $firstName = $_SESSION['first_name'];
-        $lastName = $_SESSION['last_name'];
-        $photo = $_SESSION['photo'];
+if ($command == 'logout') {
+    session_unset();
+    session_destroy();
 
-        $template = "templates/inventory.php";
-
-        include "templates/dashboard.php";
-        exit();
-    }
-
-    if ($command == 'order') {
-        $firstName = $_SESSION['first_name'];
-        $lastName = $_SESSION['last_name'];
-        $photo = $_SESSION['photo'];
-
-        $template = "templates/order.php";
-
-        include "templates/dashboard.php";
-        exit();
-    }
-
-    if ($command == 'supplier') {
-        $firstName = $_SESSION['first_name'];
-        $lastName = $_SESSION['last_name'];
-        $photo = $_SESSION['photo'];
-
-        $template = "templates/supplier.php";
-
-        $partners = $repository->getAllContacts('supplier');
-
-        include "templates/dashboard.php";
-        exit();
-    }
-
-    if ($command == 'customer') {
-        $firstName = $_SESSION['first_name'];
-        $lastName = $_SESSION['last_name'];
-        $photo = $_SESSION['photo'];
-
-        $template = "templates/customer.php";
-
-        $partners = $repository->getAllContacts('customer');
-
-        include "templates/dashboard.php";
-        exit();
-    }
-
-    if ($command == 'contact_details') {
-        $firstName = $_SESSION['first_name'];
-        $lastName = $_SESSION['last_name'];
-        $photo = $_SESSION['photo'];
-
-        $template = "templates/contact_details.php";
-        $contact = $repository->getContact($id);
-
-        include "templates/dashboard.php";
-        exit();
-    }
-
-    if ($partner) {
-        $firstName = $_SESSION['first_name'];
-        $lastName = $_SESSION['last_name'];
-        $photo = $_SESSION['photo'];
-
-        $template = "templates/" . $partner . ".php";
-
-        if ($name == '' or $contact == '' or $address = '' or $phone == '' or $email = '') {
-            $partners = $repository->getAllContacts($partner);
-            $currentCommand = $partner;
-            $message = 'The entered data is not valid.';
-            $messageType = 'error';
-
-            include "templates/dashboard.php";
-            exit();
-
-        } else {
-            $newContact = new Contact(null, $name, $contact, $address, $phone, $email);
-
-            $repository->saveContact($newContact, $partner);
-            $repository->getAllContacts($partner);
-            $message = 'New ' . $partner . ' is saved!';
-            $messageType = 'success';
-
-            header("Location: ?command=" . $partner . "&message=" . urlencode($message) . "&messageType=" . urlencode($messageType));
-        }
-        exit();
-    }
-
-    if ($command == 'logout') {
-        session_unset();
-        session_destroy();
-
-        header("Location: templates/login.php");
-        exit();
-    }
+    header("Location: templates/login.php");
+    exit();
+}
 

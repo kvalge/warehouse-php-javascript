@@ -1,7 +1,7 @@
 <div class="date"><?php echo date("Y/m/d") ?></div>
 <h4>Received this month:</h4>
 <h4>Delivered this month:</h4>
-<h4>State of Occupancy:</h4>
+<h4>State of warehouse Occupancy: <?php echo $wh_occupancy ?>%</h4>
 <h4>Approaching deadlines:</h4>
 <h4>Exceeded deadlines:</h4>
 <hr>

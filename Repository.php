@@ -3,6 +3,7 @@
 require_once 'data/db_connection.php';
 require_once 'User.php';
 require_once 'UserContact.php';
+require_once 'Warehouse.php';
 
 class Repository
 {
@@ -56,7 +57,7 @@ class Repository
         }
     }
 
-    function saveContact(Contact $contact, String $partner): void {
+    function saveContact(Contact $contact, string $partner): void {
         $stmt = $this->createConnection()->prepare('INSERT INTO contacts (
                       id, name, contact_person, address, phone, email) 
 VALUES (DEFAULT, :name, :contact_person, :address, :phone, :email)');
@@ -120,5 +121,19 @@ VALUES (DEFAULT, :contacts_id)');
         $email = $contact['email'];
 
         return new Contact($id, $name, $contactPerson, $address, $phone, $email);
+    }
+
+    function getWarehouse() {
+        $stmt = $this->createConnection()->prepare('SELECT * FROM warehouse');
+
+        $stmt->execute();
+
+        $warehouse = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($warehouse) {
+            return new Warehouse($warehouse['id'], $warehouse['capacity'], $warehouse['occupancy']);
+        } else {
+            return null;
+        }
     }
 }
