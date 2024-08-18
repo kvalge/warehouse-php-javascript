@@ -97,7 +97,7 @@ div.main_container {
 }
 
 
-div.links_main_container {
+.links_main_container {
     display: flex;
     justify-content: space-between;
     padding: 10px;

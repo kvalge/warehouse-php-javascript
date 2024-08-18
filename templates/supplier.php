@@ -46,52 +46,48 @@
                         <label for="email">Email:</label>
                         <input type="text" id="email" name="email">
                     </div>
-                    <button type="submit" name="partner" value="supplier">Submit</button>
+                    <button type="submit" id="input_button" name="partner" value="supplier">Submit</button>
                 </div>
         </form>
     </div>
+</div>
 
-    <script>
-        document.getElementById('supplierForm').addEventListener('submit', function (event) {
-            let isValid = true;
+<script>
+    const addPartner = document.getElementById('supplierForm');
+    const partnerInput = addPartner.querySelectorAll('input');
+    const input_button = document.getElementById('input_button');
 
-            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+    const partners = [];
 
-            const name = document.getElementById('name').value;
-            if (name.trim() === '') {
-                document.getElementById('nameError').textContent = 'Name is required.';
-                isValid = false;
-            }
+    function checkValues() {
+        const partnerName = partnerInput[0].value;
+        const partnerContact = partnerInput[1].value;
+        const partnerAddress = partnerInput[2].value;
+        const partnerPhone = partnerInput[3].value;
+        const partnerEmail = partnerInput[4].value;
 
-            const contact = document.getElementById('contact').value;
-            if (contact.trim() === '') {
-                document.getElementById('contactError').textContent = 'Contact Person is required.';
-                isValid = false;
-            }
+        if (partnerName.trim() === '' ||
+            partnerContact.trim() === '' ||
+            partnerAddress.trim() === '' ||
+            partnerPhone.trim() === '' ||
+            partnerEmail.trim() === '') {
+            alert("Not valid input!");
+        } else {
+            const newPartner = {
+                name: partnerName,
+                contact: partnerContact,
+                address: partnerAddress,
+                phone: partnerPhone,
+                email: partnerEmail
+            };
+            partners.push(newPartner)
+            console.log(partners)
 
-            const address = document.getElementById('address').value;
-            if (address.trim() === '') {
-                document.getElementById('addressError').textContent = 'Address is required.';
-                isValid = false;
-            }
 
-            const phone = document.getElementById('phone').value;
-            const phonePattern = /^[0-9]{8}$/;
-            if (!phonePattern.test(phone)) {
-                document.getElementById('phoneError').textContent = 'Phone must be a 8-digit number.';
-                isValid = false;
-            }
+        }
+    }
 
-            const email = document.getElementById('email').value;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                document.getElementById('emailError').textContent = 'Email is invalid.';
-                isValid = false;
-            }
+    input_button.addEventListener('click', checkValues)
+    console.log(partners)
 
-            if (!isValid) {
-                alert("Check!!!")
-                event.preventDefault();
-            }
-        });
-    </script>
+</script>
